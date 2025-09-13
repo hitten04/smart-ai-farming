@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Smart AI Farming Assistant</title>
+    <meta name="description" content="AI-powered farming assistant for weather prediction, crop recommendations, disease diagnosis, and government schemes">
+    <meta name="keywords" content="farming, agriculture, AI, weather, crops, disease, government schemes">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="enhanced-styles.css">
+    <link rel="manifest" href="pwa/manifest.json">
+    <meta name="theme-color" content="#2e7d32">
+    <link rel="preconnect" href="https://api.open-meteo.com">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌾</text></svg>">
+</head>
+<body>
+    <div class="container">
+        <header role="banner">
+            <h1>🌾 Smart AI Farming Assistant</h1>
+            <div class="header-controls">
+                <div class="language-selector">
+                    <label for="languageSelect" class="sr-only">Select Language</label>
+                    <select id="languageSelect" aria-label="Language Selection">
+                        <option value="en">🇺🇸 English</option>
+                        <option value="hi">🇮🇳 हिंदी</option>
+                        <option value="gu">🇮🇳 ગુજરાતી</option>
+                    </select>
+                </div>
+                <div class="connection-status" id="connectionStatus" aria-live="polite">
+                    <span class="status-indicator online" title="Online">🟢</span>
+                </div>
+            </div>
+        </header>
+
+        <nav class="tabs" role="tablist" aria-label="Main Navigation">
+            <button class="tab-btn active" data-tab="weather" role="tab" aria-selected="true" aria-controls="weather">
+                <span class="tab-icon">🌤️</span>
+                <span data-i18n="weather_crop">Weather & Crop</span>
+            </button>
+            <button class="tab-btn" data-tab="disease" role="tab" aria-selected="false" aria-controls="disease">
+                <span class="tab-icon">🔬</span>
+                <span data-i18n="disease_helper">Disease Helper</span>
+            </button>
+            <button class="tab-btn" data-tab="schemes" role="tab" aria-selected="false" aria-controls="schemes">
+                <span class="tab-icon">🏛️</span>
+                <span data-i18n="govt_schemes">Govt Schemes</span>
+            </button>
+            <button class="tab-btn" data-tab="chat" role="tab" aria-selected="false" aria-controls="chat">
+                <span class="tab-icon">💬</span>
+                <span data-i18n="chatbot">Chatbot</span>
+            </button>
+        </nav>
+
+        <!-- Weather & Crop Tab -->
+        <div id="weather" class="tab-content active" role="tabpanel" aria-labelledby="weather-tab">
+            <div class="card">
+                <h2 data-i18n="weather_prediction">Weather Prediction</h2>
+                <form id="weatherForm" novalidate>
+                    <div class="location-section">
+                        <h3>📍 Location</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="lat" data-i18n="latitude">Latitude:</label>
+                                <input type="number" id="lat" step="0.0001" value="19.0760" required 
+                                       min="-90" max="90" aria-describedby="lat-help">
+                                <small id="lat-help" class="form-help">Range: -90 to 90</small>
+                            </div>
+                            <div class="form-group">
+                                <label for="lon" data-i18n="longitude">Longitude:</label>
+                                <input type="number" id="lon" step="0.0001" value="72.8777" required 
+                                       min="-180" max="180" aria-describedby="lon-help">
+                                <small id="lon-help" class="form-help">Range: -180 to 180</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="month" data-i18n="month">Month:</label>
+                        <select id="month" required aria-describedby="month-help">
+                            <option value="1">January</option>
+                            <option value="2">February</option>
+                            <option value="3">March</option>
+                            <option value="4">April</option>
+                            <option value="5">May</option>
+                            <option value="6">June</option>
+                            <option value="7" selected>July</option>
+                            <option value="8">August</option>
+                            <option value="9">September</option>
+                            <option value="10">October</option>
+                            <option value="11">November</option>
+                            <option value="12">December</option>
+                        </select>
+                        <small id="month-help" class="form-help">Select prediction month</small>
+                    </div>
+                    <div class="form-group">
+                        <label data-i18n="humidity">Humidity (%):</label>
+                        <input type="number" id="humidity" min="0" max="100" placeholder="Optional">
+                    </div>
+                    <div class="form-group">
+                        <label data-i18n="cloud_cover">Cloud Cover (%):</label>
+                        <input type="number" id="cloudCover" min="0" max="100" placeholder="Optional">
+                    </div>
+                    <div class="form-group">
+                        <label data-i18n="wind_speed">Wind Speed (km/h):</label>
+                        <input type="number" id="windSpeed" min="0" placeholder="Optional">
+                    </div>
+                    <div class="form-group">
+                        <label data-i18n="sun_hours">Sun Hours:</label>
+                        <input type="number" id="sunHours" min="0" max="24" placeholder="Optional">
+                    </div>
+                    <div class="form-group checkbox-group">
+                        <label>
+                            <input type="checkbox" id="offlineOnly" checked>
+                            <span data-i18n="offline_only">Offline Only</span>
+                        </label>
+                    </div>
+                    <button type="submit" data-i18n="predict_weather">Predict Weather</button>
+                </form>
+                <div id="weatherResult" class="result" role="region" aria-live="polite" aria-label="Weather Prediction Results"></div>
+            </div>
+
+            <div class="card">
+                <h2 data-i18n="crop_recommendation">Crop Recommendation</h2>
+                <form id="cropForm">
+                    <div class="form-group">
+                        <label data-i18n="soil_type">Soil Type:</label>
+                        <select id="soilType" required>
+                            <option value="clay">Clay Soil</option>
+                            <option value="sandy">Sandy Soil</option>
+                            <option value="loamy">Loamy Soil</option>
+                            <option value="black">Black Soil</option>
+                            <option value="red">Red Soil</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label data-i18n="season">Season:</label>
+                        <select id="season" required>
+                            <option value="kharif">Kharif (Monsoon)</option>
+                            <option value="rabi">Rabi (Winter)</option>
+                            <option value="zaid">Zaid (Summer)</option>
+                        </select>
+                    </div>
+                    <button type="submit" data-i18n="recommend_crops">Recommend Crops</button>
+                </form>
+                <div id="cropResult" class="result" role="region" aria-live="polite" aria-label="Crop Recommendation Results"></div>
+            </div>
+        </div>
+
+        <!-- Disease Helper Tab -->
+        <div id="disease" class="tab-content" role="tabpanel" aria-labelledby="disease-tab">
+            <div class="card">
+                <h2 data-i18n="disease_diagnosis">Disease Diagnosis</h2>
+                <form id="diseaseForm">
+                    <div class="form-group">
+                        <label data-i18n="describe_symptoms">Describe symptoms:</label>
+                        <textarea id="symptoms" rows="4" placeholder="e.g., yellow leaves, brown spots, wilting..." required></textarea>
+                    </div>
+                    <button type="submit" data-i18n="diagnose">Diagnose</button>
+                </form>
+                <div id="diseaseResult" class="result" role="region" aria-live="polite" aria-label="Disease Diagnosis Results"></div>
+            </div>
+        </div>
+
+        <!-- Government Schemes Tab -->
+        <div id="schemes" class="tab-content" role="tabpanel" aria-labelledby="schemes-tab">
+            <div class="card">
+                <h2 data-i18n="government_schemes">Government Schemes</h2>
+                <form id="schemesForm">
+                    <div class="form-group">
+                        <label data-i18n="search_query">Search Query:</label>
+                        <input type="text" id="schemeQuery" placeholder="e.g., insurance, loan, subsidy">
+                    </div>
+                    <div class="form-group">
+                        <label data-i18n="state">State:</label>
+                        <select id="schemeState">
+                            <option value="">All States</option>
+                            <option value="gujarat">Gujarat</option>
+                            <option value="maharashtra">Maharashtra</option>
+                            <option value="rajasthan">Rajasthan</option>
+                            <option value="punjab">Punjab</option>
+                        </select>
+                    </div>
+                    <button type="submit" data-i18n="search_schemes">Search Schemes</button>
+                </form>
+                <div id="schemesResult" class="result" role="region" aria-live="polite" aria-label="Government Schemes Results"></div>
+            </div>
+        </div>
+
+        <!-- Chatbot Tab -->
+        <div id="chat" class="tab-content" role="tabpanel" aria-labelledby="chat-tab">
+            <div class="card">
+                <h2 data-i18n="farming_assistant">Farming Assistant</h2>
+                <div id="chatMessages" class="chat-messages" role="log" aria-live="polite" aria-label="Chat Messages"></div>
+                <form id="chatForm">
+                    <div class="form-group">
+                        <textarea id="chatInput" rows="3" placeholder="Ask me about farming, weather, crops..." required></textarea>
+                    </div>
+                    <button type="submit" data-i18n="send_message">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="api.js"></script>
+    <script src="app.js"></script>
+    <script>
+        // Register service worker with error handling
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('pwa/sw.js')
+                .then(registration => console.log('SW registered:', registration))
+                .catch(error => console.log('SW registration failed:', error));
+        }
+        
+        // Add keyboard navigation support
+        document.addEventListener('keydown', (e) => {
+            if (e.altKey && e.key >= '1' && e.key <= '4') {
+                e.preventDefault();
+                const tabIndex = parseInt(e.key) - 1;
+                const tabs = document.querySelectorAll('.tab-btn');
+                if (tabs[tabIndex]) tabs[tabIndex].click();
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,56 @@
+soil_types:
+  clay:
+    name: "Clay Soil"
+    characteristics: "Heavy, nutrient-rich, retains water well"
+    crops:
+      kharif: ["rice", "sugarcane", "cotton", "jute"]
+      rabi: ["wheat", "barley", "mustard", "gram"]
+      zaid: ["fodder", "vegetables"]
+  
+  sandy:
+    name: "Sandy Soil"
+    characteristics: "Light, well-drained, warms quickly"
+    crops:
+      kharif: ["bajra", "jowar", "groundnut", "cotton"]
+      rabi: ["wheat", "barley", "mustard"]
+      zaid: ["watermelon", "muskmelon", "fodder"]
+  
+  loamy:
+    name: "Loamy Soil"
+    characteristics: "Ideal mix, fertile, good drainage"
+    crops:
+      kharif: ["rice", "maize", "sugarcane", "cotton", "pulses"]
+      rabi: ["wheat", "barley", "peas", "mustard", "potato"]
+      zaid: ["maize", "fodder", "vegetables"]
+  
+  black:
+    name: "Black Soil (Regur)"
+    characteristics: "Rich in lime, iron, good for cotton"
+    crops:
+      kharif: ["cotton", "sugarcane", "jowar", "bajra"]
+      rabi: ["wheat", "gram", "linseed", "safflower"]
+      zaid: ["fodder", "vegetables"]
+  
+  red:
+    name: "Red Soil"
+    characteristics: "Rich in iron oxide, good drainage"
+    crops:
+      kharif: ["rice", "ragi", "groundnut", "cotton"]
+      rabi: ["wheat", "gram", "linseed", "tobacco"]
+      zaid: ["fodder", "vegetables"]
+
+seasons:
+  kharif:
+    name: "Kharif (Monsoon)"
+    months: [6, 7, 8, 9]
+    description: "Sown in monsoon, harvested in autumn"
+  
+  rabi:
+    name: "Rabi (Winter)"
+    months: [10, 11, 12, 1, 2, 3]
+    description: "Sown in winter, harvested in spring"
+  
+  zaid:
+    name: "Zaid (Summer)"
+    months: [4, 5]
+    description: "Sown in summer with irrigation"

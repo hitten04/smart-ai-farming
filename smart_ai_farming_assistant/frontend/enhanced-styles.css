@@ -1,0 +1,335 @@
+/* Additional Enhanced Styles for Smart AI Farming Assistant */
+
+/* Screen reader only content */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* Header enhancements */
+.header-controls {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.connection-status {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+}
+
+.status-indicator {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    display: inline-block;
+    animation: pulse 2s infinite;
+}
+
+.status-indicator.online {
+    background: #4caf50;
+    box-shadow: 0 0 8px rgba(76, 175, 80, 0.6);
+}
+
+.status-indicator.offline {
+    background: #f44336;
+    box-shadow: 0 0 8px rgba(244, 67, 54, 0.6);
+}
+
+/* Tab enhancements */
+.tab-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.tab-icon {
+    font-size: 1.2rem;
+}
+
+/* Form enhancements */
+.location-section {
+    background: rgba(76, 175, 80, 0.05);
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    border: 1px solid rgba(76, 175, 80, 0.2);
+}
+
+.location-section h3 {
+    margin: 0 0 1rem 0;
+    color: var(--primary-green);
+    font-size: 1.1rem;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.form-help {
+    display: block;
+    color: #666;
+    font-size: 0.8rem;
+    margin-top: 0.25rem;
+    font-style: italic;
+}
+
+/* Enhanced input states */
+.form-group input:focus + .form-help,
+.form-group select:focus + .form-help {
+    color: var(--light-green);
+}
+
+/* Accessibility improvements */
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: 2px solid var(--light-green);
+    outline-offset: 2px;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    :root {
+        --primary-green: #1b5e20;
+        --light-green: #2e7d32;
+        --accent-green: #388e3c;
+    }
+    
+    .card {
+        border: 2px solid var(--primary-green);
+    }
+    
+    .tab-btn.active {
+        border: 2px solid white;
+    }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+    
+    .loading::after {
+        animation: none;
+        content: '⏳';
+    }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg-gradient: linear-gradient(135deg, #1a2e1a 0%, #2d4a2d 50%, #1e3a1e 100%);
+    }
+    
+    body {
+        color: #e0e0e0;
+    }
+    
+    .card {
+        background: rgba(40, 40, 40, 0.95);
+        color: #e0e0e0;
+    }
+    
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+        background: rgba(60, 60, 60, 0.9);
+        color: #e0e0e0;
+        border-color: rgba(76, 175, 80, 0.5);
+    }
+    
+    .chat-messages {
+        background: rgba(40, 40, 40, 0.8);
+    }
+    
+    .chat-message.user {
+        background: linear-gradient(135deg, #1e3a8a, #1e40af);
+    }
+    
+    .chat-message.assistant {
+        background: linear-gradient(135deg, #166534, #15803d);
+    }
+}
+
+/* Print styles */
+@media print {
+    .tabs,
+    .language-selector,
+    .connection-status,
+    button {
+        display: none !important;
+    }
+    
+    .tab-content {
+        display: block !important;
+    }
+    
+    .card {
+        break-inside: avoid;
+        box-shadow: none;
+        border: 1px solid #ccc;
+    }
+    
+    body {
+        background: white;
+        color: black;
+    }
+}
+
+/* Mobile-specific enhancements */
+@media (max-width: 480px) {
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+    
+    .header-controls {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .tab-btn {
+        padding: 0.8rem 0.5rem;
+        font-size: 0.85rem;
+    }
+    
+    .tab-icon {
+        font-size: 1rem;
+    }
+}
+
+/* Focus management */
+.focus-trap {
+    position: relative;
+}
+
+.focus-trap:focus-within {
+    outline: 2px solid var(--light-green);
+    outline-offset: 2px;
+    border-radius: 4px;
+}
+
+/* Loading states for better UX */
+.form-loading {
+    position: relative;
+    pointer-events: none;
+}
+
+.form-loading::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(2px);
+    border-radius: inherit;
+    z-index: 10;
+}
+
+/* Enhanced error states */
+.form-group.has-error input,
+.form-group.has-error select,
+.form-group.has-error textarea {
+    border-color: #f44336;
+    box-shadow: 0 0 0 3px rgba(244, 67, 54, 0.1);
+    animation: shake 0.5s ease-in-out;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+}
+
+/* Success states */
+.form-group.has-success input,
+.form-group.has-success select,
+.form-group.has-success textarea {
+    border-color: var(--light-green);
+    box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
+}
+
+/* Tooltip styles */
+.tooltip {
+    position: relative;
+    cursor: help;
+}
+
+.tooltip::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.9);
+    color: white;
+    padding: 0.5rem;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+    z-index: 1000;
+}
+
+.tooltip:hover::after {
+    opacity: 1;
+}
+
+/* Progress indicators */
+.progress-bar {
+    width: 100%;
+    height: 4px;
+    background: rgba(76, 175, 80, 0.2);
+    border-radius: 2px;
+    overflow: hidden;
+    margin: 1rem 0;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--light-green), var(--accent-green));
+    border-radius: 2px;
+    transition: width 0.3s ease;
+}
+
+/* Skeleton loading */
+.skeleton {
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+/* Micro-interactions */
+.card:hover .card h2::before {
+    animation: bounce 0.6s ease;
+}
+
+@keyframes bounce {
+    0%, 20%, 60%, 100% { transform: translateY(0); }
+    40% { transform: translateY(-10px); }
+    80% { transform: translateY(-5px); }
+}
