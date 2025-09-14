@@ -339,7 +339,7 @@ class FarmingApp {
                 cloud_cover: document.getElementById('cloudCover').value ? parseFloat(document.getElementById('cloudCover').value) : null,
                 wind_kph: document.getElementById('windSpeed').value ? parseFloat(document.getElementById('windSpeed').value) : null,
                 sun_hours: document.getElementById('sunHours').value ? parseFloat(document.getElementById('sunHours').value) : null,
-                offline_only: document.getElementById('offlineOnly').checked || !this.isOnline
+                offline_only: document.getElementById('offlineOnly')?.checked || !this.isOnline
             };
 
             const result = await this.makeRequest(() => api.predictWeather(formData));
@@ -358,7 +358,6 @@ class FarmingApp {
                         <span class="value">${result.temp_c}°C</span>
                     </div>
                 </div>
-                <p><strong>Data Source:</strong> ${result.api_used ? '🌐 Live API' : '💾 Offline Model'}</p>
                 <div class="why">${result.why}</div>
             `;
 

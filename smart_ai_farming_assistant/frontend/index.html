@@ -26,28 +26,25 @@
                         <option value="gu">🇮🇳 ગુજરાતી</option>
                     </select>
                 </div>
-                <div class="connection-status" id="connectionStatus" aria-live="polite">
-                    <span class="status-indicator online" title="Online">🟢</span>
-                </div>
             </div>
         </header>
 
         <nav class="tabs" role="tablist" aria-label="Main Navigation">
             <button class="tab-btn active" data-tab="weather" role="tab" aria-selected="true" aria-controls="weather">
                 <span class="tab-icon">🌤️</span>
-                <span data-i18n="weather_crop">Weather & Crop</span>
+                <span data-i18n="Weather & Crop">Weather & Crop</span>
             </button>
             <button class="tab-btn" data-tab="disease" role="tab" aria-selected="false" aria-controls="disease">
                 <span class="tab-icon">🔬</span>
-                <span data-i18n="disease_helper">Disease Helper</span>
+                <span data-i18n="Disease Helper">Disease Helper</span>
             </button>
             <button class="tab-btn" data-tab="schemes" role="tab" aria-selected="false" aria-controls="schemes">
                 <span class="tab-icon">🏛️</span>
-                <span data-i18n="govt_schemes">Govt Schemes</span>
+                <span data-i18n="Govt Schemes">Govt Schemes</span>
             </button>
             <button class="tab-btn" data-tab="chat" role="tab" aria-selected="false" aria-controls="chat">
                 <span class="tab-icon">💬</span>
-                <span data-i18n="chatbot">Chatbot</span>
+                <span data-i18n="Chatbot">Chatbot</span>
             </button>
         </nav>
 
@@ -106,12 +103,6 @@
                     <div class="form-group">
                         <label data-i18n="sun_hours">Sun Hours:</label>
                         <input type="number" id="sunHours" min="0" max="24" placeholder="Optional">
-                    </div>
-                    <div class="form-group checkbox-group">
-                        <label>
-                            <input type="checkbox" id="offlineOnly" checked>
-                            <span data-i18n="offline_only">Offline Only</span>
-                        </label>
                     </div>
                     <button type="submit" data-i18n="predict_weather">Predict Weather</button>
                 </form>

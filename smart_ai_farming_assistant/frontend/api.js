@@ -74,3 +74,6 @@ class API {
 
 // Create global API instance
 window.api = new API();
+
+// Gemini API configuration - using the provided API key
+// const GEMINI (This line was incomplete and commented out to prevent syntax errors)
